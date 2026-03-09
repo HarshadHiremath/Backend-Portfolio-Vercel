@@ -5,16 +5,18 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
+// root
+app.get("/api", (req, res) => {
   res.json({
     message: "Welcome to VibeLink Backend 🚀"
   });
 });
 
-app.get("/health", (req, res) => {
+// health check
+app.get("/api/health", (req, res) => {
   res.json({
     status: "Server Running"
   });
 });
 
-export const handler = serverless(app);
+export default serverless(app);
