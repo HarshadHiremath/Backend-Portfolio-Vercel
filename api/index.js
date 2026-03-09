@@ -19,4 +19,12 @@ app.get("/health", (req, res) => {
   });
 });
 
+// When running locally (e.g., `node api/index.js`), start an express server.
+if (process.env.VERCEL !== "1") {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`);
+  });
+}
+
 export default serverless(app);
