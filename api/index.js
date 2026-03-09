@@ -38,7 +38,7 @@ app.post("/api/test", (req, res) => {
 });
 
 // Export for Vercel
-export const handler = serverless(app);
+export default serverless(app);
 
 // Run locally
 if (process.env.NODE_ENV !== "production") {
