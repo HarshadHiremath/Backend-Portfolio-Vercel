@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import Status from "../views/status.html";
+import Status from "../views/status.js";
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.use(express.json());
 
 /* Root API */
 app.get("/api", (req, res) => {
-  res.sendFile(Status);
+  res.send(Status);
 });
 
 /* Test GET API */
