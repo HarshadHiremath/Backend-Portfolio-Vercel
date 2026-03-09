@@ -1,30 +1,49 @@
 import express from "express";
 import serverless from "serverless-http";
+import cors from "cors";
 
 const app = express();
 
+// middleware
+app.use(cors());
 app.use(express.json());
 
-// root
+// Test route
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to VibeLink Backend 🚀"
+    message: "Backend is working 🚀"
   });
 });
 
-// health check
-app.get("/health", (req, res) => {
+// POST route for Postman testing
+app.post("/api/test", (req, res) => {
+
+  const { name, email } = req.body;
+
+  if (!name || !email) {
+    return res.status(400).json({
+      success: false,
+      message: "Name and Email required"
+    });
+  }
+
   res.json({
-    status: "Server Running"
+    success: true,
+    message: "Data received successfully",
+    data: {
+      name,
+      email
+    }
   });
 });
 
-// When running locally (e.g., `node api/index.js`), start an express server.
-if (process.env.VERCEL !== "1") {
-  const port = process.env.PORT || 3000;
-  app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
+// Export for Vercel
+export const handler = serverless(app);
+
+// Run locally
+if (process.env.NODE_ENV !== "production") {
+  const PORT = 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
   });
 }
-
-export default serverless(app);
