@@ -6,14 +6,14 @@ const app = express();
 app.use(express.json());
 
 // root
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
   res.json({
     message: "Welcome to VibeLink Backend 🚀"
   });
 });
 
 // health check
-app.get("/api/health", (req, res) => {
+app.get("/health", (req, res) => {
   res.json({
     status: "Server Running"
   });
