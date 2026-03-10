@@ -1,11 +1,14 @@
-import express from "express";
-import cors from "cors";
+     
 import Status from "../views/status.js";
+import app from "../app.js";
+import connectDB from "../config/db.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-const app = express();
+connectDB();
+// const app = express();
 
-app.use(cors());
-app.use(express.json());
+
 
 /* Root API */
 app.get("/api", (req, res) => {
