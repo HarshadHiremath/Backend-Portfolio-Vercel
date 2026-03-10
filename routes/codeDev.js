@@ -1,7 +1,7 @@
 import express from "express";
 
-import badgeRoutes from "./routes/badgeRoutes.js";
-import profileRoutes from "./routes/profileRoutes.js";
+import badgeRoutes from "./codeDev-badgeRoutes.js";
+import profileRoutes from "./codeDev-profileRoutes.js";
 
 const router = express.Router();
 
