@@ -5,7 +5,7 @@ import profileRoutes from "./codeDev-profileRoutes.js";
 
 const router = express.Router();
 
-router.use("/api/badges", badgeRoutes);
-router.use("/api/profiles", profileRoutes);
+router.use("/badges", badgeRoutes);
+router.use("/profiles", profileRoutes);
 
 export default router;
