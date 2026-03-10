@@ -1,4 +1,4 @@
-import Milestone from "../models/project-MilestoneSchema.js";
+import Milestone from "../models/project-milestoneSchema.js";
 import mongoose from "mongoose";
 
 
