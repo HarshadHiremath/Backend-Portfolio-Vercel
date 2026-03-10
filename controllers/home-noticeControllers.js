@@ -1,12 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const Notice = require("../models/Notice");
-
-
-
+import Notice from "../models/home-noticeBoard.js";
 
 // GET all notices
-router.get("/", async (req, res) => {
+export const getNotices = async (req, res) => {
   try {
     const notices = await Notice.find().sort({ createdAt: -1 });
 
@@ -20,13 +15,10 @@ router.get("/", async (req, res) => {
       message: error.message,
     });
   }
-});
-
-
-
+};
 
 // CREATE notice
-router.post("/", async (req, res) => {
+export const createNotice = async (req, res) => {
   try {
     const { title, content, date } = req.body;
 
@@ -48,13 +40,10 @@ router.post("/", async (req, res) => {
       message: error.message,
     });
   }
-});
-
-
-
+};
 
 // UPDATE notice
-router.patch("/:id", async (req, res) => {
+export const updateNotice = async (req, res) => {
   try {
     const updatedNotice = await Notice.findByIdAndUpdate(
       req.params.id,
@@ -79,13 +68,10 @@ router.patch("/:id", async (req, res) => {
       message: error.message,
     });
   }
-});
-
-
-
+};
 
 // DELETE notice
-router.delete("/:id", async (req, res) => {
+export const deleteNotice = async (req, res) => {
   try {
     const deleted = await Notice.findByIdAndDelete(req.params.id);
 
@@ -106,8 +92,4 @@ router.delete("/:id", async (req, res) => {
       message: error.message,
     });
   }
-});
-
-
-
-module.exports = router;
+};

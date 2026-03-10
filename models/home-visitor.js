@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const visitorSchema = new mongoose.Schema(
   {
@@ -16,4 +16,6 @@ const visitorSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Visitor", visitorSchema);
+const Visitor = mongoose.model("Visitor", visitorSchema);
+
+export default Visitor;

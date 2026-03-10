@@ -1,10 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const Visitor = require("../models/Visitor");
-
+import Visitor from "../models/home-visitor.js";
 
 // Track visitor
-router.post("/track", async (req, res) => {
+export const trackVisitor = async (req, res) => {
   try {
     const ip =
       req.headers["x-forwarded-for"] || req.socket.remoteAddress;
@@ -28,13 +25,11 @@ router.post("/track", async (req, res) => {
       message: error.message,
     });
   }
-});
-
-
+};
 
 
 // Get visitor stats
-router.get("/stats", async (req, res) => {
+export const getVisitorStats = async (req, res) => {
   try {
 
     const totalVisitors = await Visitor.countDocuments();
@@ -79,8 +74,4 @@ router.get("/stats", async (req, res) => {
     });
 
   }
-});
-
-
-
-module.exports = router;
+};
