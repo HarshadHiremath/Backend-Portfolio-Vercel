@@ -9,9 +9,9 @@ import {
 
 const router = express.Router();
 
-router.get("/devlog", getDevLog);
-router.post("/devlog", createDevLog);
-router.put("/devlog/:id", updateDevLog);
-router.delete("/devlog/:id", deleteDevLog);
+router.get("/", getDevLog);
+router.post("/", createDevLog);
+router.put("/:id", updateDevLog);
+router.delete("/:id", deleteDevLog);
 
 export default router;

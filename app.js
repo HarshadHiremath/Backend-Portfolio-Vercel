@@ -9,6 +9,7 @@ import about from "./routes/about.js";
 import blog from "./routes/blog.js";
 import contact from "./routes/contact.js";
 import link from "./routes/link.js";
+import adminRoutes from "./routes/admin-adminRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -29,6 +30,8 @@ app.use("/api/blog", protect, blog);
 app.use("/api/contact", protect, contact);
 
 app.use("/api/link", protect, link);
+
+app.use("/api/admin", adminRoutes);
 
 
 export default app;
