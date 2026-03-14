@@ -7,7 +7,7 @@ export const trackVisitor = async (req, res) => {
       req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
     const userAgent = req.headers["user-agent"];
-
+ 
     const visitor = new Visitor({
       ip,
       userAgent,

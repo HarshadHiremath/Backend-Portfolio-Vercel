@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use("/api/home", protect, home);
+app.use("/api/home", home);
 
 app.use("/api/project", protect, project);
 
