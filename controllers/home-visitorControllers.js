@@ -28,28 +28,38 @@ export const trackVisitor = async (req, res) => {
 };
 
 
-// Get visitor stats
 export const getVisitorStats = async (req, res) => {
   try {
 
     const totalVisitors = await Visitor.countDocuments();
 
-    const todayStart = new Date();
-    todayStart.setHours(0,0,0,0);
+    const now = new Date();
+
+    // Today start (UTC)
+    const todayStart = new Date(Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      0,0,0,0
+    ));
 
     const todayVisitors = await Visitor.countDocuments({
       createdAt: { $gte: todayStart }
     });
 
-    const monthStart = new Date();
-    monthStart.setDate(1);
-    monthStart.setHours(0,0,0,0);
+    // Month start (UTC)
+    const monthStart = new Date(Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      1,
+      0,0,0,0
+    ));
 
     const monthlyVisitors = await Visitor.countDocuments({
       createdAt: { $gte: monthStart }
     });
 
-    // online visitors (last 5 minutes)
+    // Online visitors (last 5 minutes)
     const onlineStart = new Date(Date.now() - 5 * 60 * 1000);
 
     const onlineVisitors = await Visitor.countDocuments({
