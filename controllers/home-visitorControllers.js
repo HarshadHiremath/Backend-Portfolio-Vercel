@@ -1,16 +1,54 @@
 import Visitor from "../models/home-visitor.js";
+import { UAParser } from "ua-parser-js";
+
 
 // Track visitor
 export const trackVisitor = async (req, res) => {
   try {
-    const ip =
-      req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
-    const userAgent = req.headers["user-agent"];
- 
+    const { page, screenSize, sessionId } = req.body;
+
+    const ip =
+      req.headers["x-forwarded-for"]?.split(",")[0] ||
+      req.socket.remoteAddress ||
+      "unknown";
+
+    const userAgent = req.headers["user-agent"] || "";
+
+    const parser = new UAParser(userAgent);
+
+    const browserName = parser.getBrowser().name || "Unknown";
+    const osName = parser.getOS().name || "Unknown";
+    const device = parser.getDevice().type || "Unknown";
+    const deviceBrand = parser.getDevice().vendor || "Unknown";
+
+    const language = req.headers["accept-language"] || "Unknown";
+    const referrer = req.headers["referer"] || "direct";
+
+    // Prevent duplicate entry
+    const existing = await Visitor.findOne({
+      sessionId,
+      page,
+    });
+
+    if (existing) {
+      return res.json({
+        success: true,
+        message: "Visitor already tracked",
+      });
+    }
+
     const visitor = new Visitor({
       ip,
-      userAgent,
+      browserName,
+      osName,
+      device,
+      deviceBrand,
+      language,
+      referrer,
+      screenSize,
+      page,
+      sessionId,
     });
 
     await visitor.save();
@@ -19,11 +57,14 @@ export const trackVisitor = async (req, res) => {
       success: true,
       message: "Visitor tracked",
     });
+
   } catch (error) {
+
     res.status(500).json({
       success: false,
       message: error.message,
     });
+
   }
 };
 

@@ -2,20 +2,18 @@ import mongoose from "mongoose";
 
 const visitorSchema = new mongoose.Schema(
   {
-    ip: {
-      type: String,
-    },
-    userAgent: {
-      type: String,
-    },
-    visitDate: {
-      type: Date,
-      default: Date.now,
-    },
+    ip: String,
+    browserName: String,
+    osName: String,
+    device: String,
+    deviceBrand: String,
+    language: String,
+    referrer: String,
+    screenSize: String,
+    page: String,
+    sessionId: String,
   },
   { timestamps: true }
 );
 
-const Visitor = mongoose.model("Visitor", visitorSchema);
-
-export default Visitor;
+export default mongoose.model("Visitor", visitorSchema);
