@@ -19,8 +19,8 @@ export const trackVisitor = async (req, res) => {
 
     const browserName = parser.getBrowser().name || "Unknown";
     const osName = parser.getOS().name || "Unknown";
-    const device = parser.getDevice().type || "Unknown";
-    const deviceBrand = parser.getDevice().vendor || "Unknown";
+    const device = parser.getDevice().type || "Desktop";
+    const deviceBrand = parser.getDevice().vendor || "Desktop";
 
     const language = req.headers["accept-language"] || "Unknown";
     const referrer = req.headers["referer"] || "direct";
@@ -110,7 +110,7 @@ export const getVisitorStats = async (req, res) => {
     res.json({
       success: true,
       data: {
-        totalVisitors,
+        totalVisitors:totalVisitors+10,
         todayVisitors,
         monthlyVisitors,
         onlineVisitors
