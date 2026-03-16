@@ -86,7 +86,7 @@ export const getVisitorStats = async (req, res) => {
     );
 
     // Online visitors (last 5 minutes)
-    const onlineStart = new Date(Date.now() - 5 * 60 * 1000);
+    const onlineStart = new Date(Date.now() - 30 * 60 * 1000);
 
     const [
       totalVisitors,
