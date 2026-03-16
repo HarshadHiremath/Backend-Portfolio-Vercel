@@ -119,3 +119,30 @@ export const getVisitorStats = async (req, res) => {
 
   }
 };
+
+
+
+
+
+
+export const getAllVisitors = async (req, res) => {
+  try {
+
+    const visitors = await Visitor.find()
+      .sort({ createdAt: -1 }) // newest first
+      .limit(30);              // only 30 records
+
+    res.json({
+      success: true,
+      data: visitors
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+};
