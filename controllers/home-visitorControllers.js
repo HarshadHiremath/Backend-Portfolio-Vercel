@@ -26,17 +26,17 @@ export const trackVisitor = async (req, res) => {
     const referrer = req.headers["referer"] || "direct";
 
     // Prevent duplicate entry
-    const existing = await Visitor.findOne({
-      sessionId,
-      page,
-    });
+    // const existing = await Visitor.findOne({
+    //   sessionId,
+    //   page,
+    // });
 
-    if (existing) {
-      return res.json({
-        success: true,
-        message: "Visitor already tracked",
-      });
-    }
+    // if (existing) {
+    //   return res.json({
+    //     success: true,
+    //     message: "Visitor already tracked",
+    //   });
+    // }
 
     const visitor = new Visitor({
       ip,
