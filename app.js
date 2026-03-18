@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors"; 
 import protect from "./middleware/authMiddleware.js";
+import mongoSanitize from "express-mongo-sanitize";
 
 import home from "./routes/home.js";
 import project from "./routes/project.js";
@@ -15,7 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(mongoSanitize());
 // Routes
 app.use("/api/home", home);
 
