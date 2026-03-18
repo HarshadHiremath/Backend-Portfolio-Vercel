@@ -14,7 +14,7 @@ export const adminLogin = async (req, res) => {
       });
     }
 
-    const admin = await Admin.findOne({ email });
+    const admin = await Admin.findOne({ email: String(email) });
 
     if (!admin) {
       return res.status(401).json({
