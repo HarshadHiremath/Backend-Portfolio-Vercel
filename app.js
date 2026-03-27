@@ -27,7 +27,7 @@ app.use("/api/about", protect, about);
 
 app.use("/api/blog", protect, blog);
 
-app.use("/api/contact", protect, contact);
+app.use("/api/contact", contact);
 
 app.use("/api/link", protect, link);
 
