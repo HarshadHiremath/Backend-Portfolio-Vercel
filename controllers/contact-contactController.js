@@ -3,16 +3,17 @@ import mongoose from "mongoose";
 import { sendEmail as template } from "../utils/SendEmail.js";
 
 
+import fetch from "node-fetch"; // only if Node < 18
+
 export const createContact = async (req, res) => {
   try {
-
     const { user, email, phone, message } = req.body;
 
     if (!email) {
-    return res.status(400).json({
-      message: "Email is required"
-    });
-  }
+      return res.status(400).json({
+        message: "Email is required"
+      });
+    }
 
     const newContact = new Contact({
       user,
@@ -25,33 +26,48 @@ export const createContact = async (req, res) => {
 
     const html = template(user);
 
-    const response = await fetch("https://email-server-murex-phi.vercel.app/api/send-otp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        fromTitle : "Harshad Hiremath <harshadhiremath5@gmail.com>",
-        sendEmail : email, 
-        subjectTitle : "Message Received Successfully", 
-        replyToEmail : "harshadhiremath5@gmail.com", 
-        template : html
-      })
-    });
+    // 🔥 Call Email API
+    const response = await fetch(
+      "https://email-server-murex-phi.vercel.app/api/send-otp",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          fromTitle: "Harshad Hiremath <harshadhiremath5@gmail.com>",
+          sendEmail: email,
+          subjectTitle: "Message Received Successfully",
+          replyToEmail: "harshadhiremath5@gmail.com",
+          template: html
+        })
+      }
+    );
 
     const data = await response.json();
 
+    // 🔥 IMPORTANT: check response status
+    if (!response.ok) {
+      console.error("Email API failed:", data);
+      return res.status(500).json({
+        message: "Email sending failed",
+        error: data
+      });
+    }
+
+    console.log("Email sent:", data);
+
     res.status(200).json({
-      message: "Data received successfully!"
+      message: "Data saved + Email sent successfully!"
     });
 
   } catch (error) {
+    console.error("Backend Error:", error);
 
     res.status(500).json({
       message: "Error saving contact",
-      error:error
+      error: error.message
     });
-
   }
 };
 
