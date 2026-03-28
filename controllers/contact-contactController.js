@@ -1,6 +1,6 @@
 import Contact from "../models/contact-contactSchema.js";
 import mongoose from "mongoose";
-import { sendEmail as template } from "../utils/SendEmail.js";
+import { sendEmail as templates } from "../utils/SendEmail.js";
 
 
 export const createContact = async (req, res) => {
@@ -22,7 +22,7 @@ export const createContact = async (req, res) => {
 
     await newContact.save();
 
-    const html = template(user);
+    const html = templates(user);
 
     const response = await fetch(
       "https://email-server-murex-phi.vercel.app/api/Send-Mail",
