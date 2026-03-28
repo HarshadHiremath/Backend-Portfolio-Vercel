@@ -1,12 +1,18 @@
 import Contact from "../models/contact-contactSchema.js";
 import mongoose from "mongoose";
-
+import { sendEmail as template } from "../utils/SendEmail.js";
 
 
 export const createContact = async (req, res) => {
   try {
 
     const { user, email, phone, message } = req.body;
+
+    if (!email) {
+    return res.status(400).json({
+      message: "Email is required"
+    });
+  }
 
     const newContact = new Contact({
       user,
@@ -16,6 +22,22 @@ export const createContact = async (req, res) => {
     });
 
     await newContact.save();
+
+    const html = template(user);
+
+    const response = await fetch("https://email-server-murex-phi.vercel.app/api/send-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        fromTitle : "Harshad Hiremath <harshadhiremath5@gmail.com>",
+        sendEmail : email, 
+        subjectTitle : "Message Received Successfully", 
+        replyToEmail : "harshadhiremath5@gmail.com", 
+        template : html
+      })
+    });
 
     res.status(200).json({
       message: "Data received successfully!"
