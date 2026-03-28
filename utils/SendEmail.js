@@ -1,4 +1,4 @@
-export function sendEmail(userName) {
+export function sendEmail(user) {
 
 return `
 <!DOCTYPE html>
@@ -102,7 +102,7 @@ return `
       </div>
       
       <div class="content">
-        <p class="body-text">Hello <span class="highlight">${UserName}</span>,</p>
+        <p class="body-text">Hello <span class="highlight">${user}</span>,</p>
         
         <p class="body-text">
           Thank you for contacting me through my portfolio website. I’ve <span class="highlight">successfully received</span> your message and will review it carefully.
