@@ -25,7 +25,7 @@ export const createContact = async (req, res) => {
     const html = template(user);
 
     const response = await fetch(
-      "https://email-server-murex-phi.vercel.app/api/send-otp",
+      "https://email-server-murex-phi.vercel.app/api/Send-Mail",
       {
         method: "POST",
         headers: {
