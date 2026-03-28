@@ -3,8 +3,6 @@ import mongoose from "mongoose";
 import { sendEmail as template } from "../utils/SendEmail.js";
 
 
-import fetch from "node-fetch"; // only if Node < 18
-
 export const createContact = async (req, res) => {
   try {
     const { user, email, phone, message } = req.body;
@@ -26,7 +24,6 @@ export const createContact = async (req, res) => {
 
     const html = template(user);
 
-    // 🔥 Call Email API
     const response = await fetch(
       "https://email-server-murex-phi.vercel.app/api/send-otp",
       {
@@ -46,7 +43,6 @@ export const createContact = async (req, res) => {
 
     const data = await response.json();
 
-    // 🔥 IMPORTANT: check response status
     if (!response.ok) {
       console.error("Email API failed:", data);
       return res.status(500).json({
@@ -75,9 +71,8 @@ export const createContact = async (req, res) => {
 
 export const getContacts = async (req, res) => {
   try {
-
     const contacts = await Contact.find();
-
+    
     res.json(contacts);
 
   } catch {
