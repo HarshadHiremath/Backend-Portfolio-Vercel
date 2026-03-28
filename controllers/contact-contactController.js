@@ -47,7 +47,7 @@ export const createContact = async (req, res) => {
 
     res.status(500).json({
       message: "Error saving contact",
-      error
+      error:error
     });
 
   }
