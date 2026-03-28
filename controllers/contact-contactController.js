@@ -39,6 +39,8 @@ export const createContact = async (req, res) => {
       })
     });
 
+    const data = await response.json();
+
     res.status(200).json({
       message: "Data received successfully!"
     });
