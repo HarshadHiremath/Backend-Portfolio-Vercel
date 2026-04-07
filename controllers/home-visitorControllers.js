@@ -229,7 +229,7 @@ export const getAllVisitors = async (req, res) => {
     try {
         const visitors = await Visitor.find()
             .sort({ createdAt: -1 }) // newest first
-            .limit(30); // only 30 records
+            .limit(50); // only 30 records
 
         res.json({
             success: true,
@@ -241,4 +241,27 @@ export const getAllVisitors = async (req, res) => {
             message: error.message,
         });
     }
+};
+
+export const getVisitorById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // 🔍 Validate MongoDB ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid ID" });
+    }
+
+    const visitor = await Visitor.findById(id);
+
+    if (!visitor) {
+      return res.status(404).json({ message: "Visitor not found" });
+    }
+
+    return res.json(visitor);
+
+  } catch (error) {
+    console.error("Get Visitor By ID Error:", error);
+    return res.status(500).json({ error: "Server error" });
+  }
 };
