@@ -1,5 +1,6 @@
 import Visitor from "../models/home-visitor.js";
 import crypto from "crypto";
+import mongoose from "mongoose";
 const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 min
 
 // import { UAParser } from "ua-parser-js";
@@ -242,6 +243,7 @@ export const getAllVisitors = async (req, res) => {
         });
     }
 };
+
 
 export const getVisitorById = async (req, res) => {
   try {
