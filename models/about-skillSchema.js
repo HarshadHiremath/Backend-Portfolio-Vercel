@@ -1,0 +1,18 @@
+import mongoose from "mongoose";
+
+const skillSchema = new mongoose.Schema(
+{
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  logo: {
+    type: String,
+    trim: true,
+  },
+},
+{ timestamps: true }
+);
+
+export default mongoose.model("Skill", skillSchema);
